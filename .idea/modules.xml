@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TellMe/TellMe.iml" filepath="$PROJECT_DIR$/TellMe/TellMe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TellMe-for-Android.iml" filepath="$PROJECT_DIR$/TellMe-for-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TellMeDemo/TellMeDemo.iml" filepath="$PROJECT_DIR$/TellMeDemo/TellMeDemo.iml" />
+    </modules>
+  </component>
+</project>
