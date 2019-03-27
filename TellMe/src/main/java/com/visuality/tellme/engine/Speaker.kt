@@ -6,7 +6,6 @@ import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import java.util.*
-import kotlin.properties.Delegates
 
 class Speaker(
     private val context: Context,
