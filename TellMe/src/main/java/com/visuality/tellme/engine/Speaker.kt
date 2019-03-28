@@ -23,10 +23,10 @@ class Speaker(
 
     private var speechQueue = arrayListOf<Speech>()
 
-    private var shouldDestroyWhenQueueBecomesEmpty = false
+    private var shouldReleaseTextToSpeechWhenQueueBecomesEmpty = false
 
-    fun destroyWhenFinish(): Speaker {
-        this.shouldDestroyWhenQueueBecomesEmpty = true
+    fun releaseWhenFinish(): Speaker {
+        this.shouldReleaseTextToSpeechWhenQueueBecomesEmpty = true
         return this
     }
 
@@ -58,8 +58,8 @@ class Speaker(
                     this@Speaker.speechQueue.remove(speech)
                     this@Speaker.onSpeechListener?.onFinishedSaying(speech.text)
 
-                    if (this@Speaker.speechQueue.isEmpty() && this@Speaker.shouldDestroyWhenQueueBecomesEmpty) {
-                        this@Speaker.close()
+                    if (this@Speaker.speechQueue.isEmpty() && this@Speaker.shouldReleaseTextToSpeechWhenQueueBecomesEmpty) {
+                        this@Speaker.release()
                     }
                 }
 
@@ -81,7 +81,7 @@ class Speaker(
                     val speech = this@Speaker.getSpeechFromQueue(utteranceId!!) ?: return
                     val position = SpeechPosition(
                         start = start,
-                        length = end - start + 1
+                        length = end - start
                     )
                     this@Speaker.onSpeechListener?.onProgress(
                         speech.text,
@@ -91,6 +91,7 @@ class Speaker(
             }
         )
 
+        this.textToSpeechInitialized = true
         this.onInitListener?.onSuccess()
 
         for (speech in this.speechQueue) {
@@ -146,7 +147,7 @@ class Speaker(
         this.speechQueue.clear()
     }
 
-    fun close() {
+    fun release() {
         this.onInitListener = null
         this.onSpeechListener = null
         this.textToSpeech.apply {
