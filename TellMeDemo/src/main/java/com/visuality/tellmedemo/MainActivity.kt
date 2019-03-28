@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                         override fun onProgress(text: String, position: SpeechPosition) {
                             val speech = text.substring(
                                 position.start,
-                                position.start + position.length - 1
+                                position.start + position.length
                             )
                             this@MainActivity.speechTextView.text = speech
                         }
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 .say("Hello! How are you doing?")
                 .say("What's up?")
                 .say("Tell me something new.")
-                .destroyWhenFinish()
+                .releaseWhenFinish()
         }
     }
 }
