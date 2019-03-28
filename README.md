@@ -31,7 +31,7 @@ Then add `TellMe` to dependencies list:
 
 ```javascript
 dependencies {
-    implementation 'com.github.igormatyushkin014:TellMe-for-Android:1.1'
+    implementation 'com.github.igormatyushkin014:TellMe-for-Android:1.2'
 }
 ```
 
@@ -71,7 +71,7 @@ tellMeIn(Locale.ENGLISH)
             }
 
             override fun onProgress(text: String, position: SpeechPosition) {
-                val currentlyPronouncing = text.substring(position.start, position.start + position.length - 1)
+                val currentlyPronouncing = text.substring(position.start, position.start + position.length)
                 // Called when a part of source text is going to be pronounced
             }
 
@@ -82,14 +82,14 @@ tellMeIn(Locale.ENGLISH)
     )
 ```
 
-Also, to make sure that all resources are released, add `destroyWhenFinish()` call to the chain:
+Also, to make sure that all resources are released, call `releaseWhenFinish()` anywhere in the chain:
 
 ```kotlin
 tellMeIn(Locale.ENGLISH)
     .say("Hello! How are you doing?")
     .say("What's up?")
     .say("Tell me something new.")
-    .destroyWhenFinish()
+    .releaseWhenFinish()
 ```
 
 Use this method when you don't need to use text-to-speech conversion frequently.
