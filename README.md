@@ -31,7 +31,7 @@ Then add `TellMe` to dependencies list:
 
 ```javascript
 dependencies {
-    implementation 'com.github.igormatyushkin014:TellMe-for-Android:1.0'
+    implementation 'com.github.igormatyushkin014:TellMe-for-Android:1.1'
 }
 ```
 
