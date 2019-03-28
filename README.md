@@ -43,7 +43,56 @@ dependencies {
 
 ## Usage
 
-Usage examples will be added later.
+Use it from any activity, fragment or service:
+
+```kotlin
+tellMeIn(Locale.ENGLISH)
+    .say("Hello")
+```
+
+Another example with chain of texts:
+
+```kotlin
+tellMeIn(Locale.ENGLISH)
+    .say("Hello! How are you doing?")
+    .say("What's up?")
+    .say("Tell me something new.")
+```
+
+Want more flexibility? Add a listener:
+
+```kotlin
+tellMeIn(Locale.ENGLISH)
+    .say("Hello! How are you doing?")
+    .setOnSpeechListener(
+        object : Speaker.OnSpeechListener {
+            override fun onStartedSaying(text: String) {
+                // Called when text is going to be pronounced
+            }
+
+            override fun onProgress(text: String, position: SpeechPosition) {
+                val currentlyPronouncing = text.substring(position.start, position.start + position.length - 1)
+                // Called when a part of source text is going to be pronounced
+            }
+
+            override fun onFinishedSaying(text: String) {
+                // Called when finished speaking
+            }
+        }
+    )
+```
+
+Also, to make sure that all resources are released, add `destroyWhenFinish()` call to the chain:
+
+```kotlin
+tellMeIn(Locale.ENGLISH)
+    .say("Hello! How are you doing?")
+    .say("What's up?")
+    .say("Tell me something new.")
+    .destroyWhenFinish()
+```
+
+Use this method when you don't need to use text-to-speech conversion frequently.
 
 ## License
 
