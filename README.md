@@ -71,7 +71,7 @@ tellMeIn(Locale.ENGLISH)
             }
 
             override fun onProgress(text: String, position: SpeechPosition) {
-                val currentlyPronouncing = text.substring(position.start, position.end + position.length - 1)
+                val currentlyPronouncing = text.substring(position.start, position.start + position.length)
                 // Called when a part of source text is going to be pronounced
             }
 
