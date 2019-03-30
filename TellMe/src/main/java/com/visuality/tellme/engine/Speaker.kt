@@ -68,6 +68,10 @@ class Speaker(
                 override fun onError(utteranceId: String?) {
                 }
 
+                override fun onError(utteranceId: String?, errorCode: Int) {
+                    super.onError(utteranceId, errorCode)
+                }
+
                 override fun onStart(utteranceId: String?) {
                     val speech = this@Speaker.getSpeechFromQueue(utteranceId!!) ?: return
                     Handler(Looper.getMainLooper()).post {
@@ -91,6 +95,10 @@ class Speaker(
                             position
                         )
                     }
+                }
+
+                override fun onStop(utteranceId: String?, interrupted: Boolean) {
+                    super.onStop(utteranceId, interrupted)
                 }
             }
         )
