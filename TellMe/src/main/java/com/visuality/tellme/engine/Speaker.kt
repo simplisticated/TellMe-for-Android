@@ -55,11 +55,13 @@ class Speaker(
             object : UtteranceProgressListener() {
                 override fun onDone(utteranceId: String?) {
                     val speech = this@Speaker.getSpeechFromQueue(utteranceId!!) ?: return
-                    this@Speaker.speechQueue.remove(speech)
-                    this@Speaker.onSpeechListener?.onFinishedSaying(speech.text)
+                    Handler(Looper.getMainLooper()).post {
+                        this@Speaker.speechQueue.remove(speech)
+                        this@Speaker.onSpeechListener?.onFinishedSaying(speech.text)
 
-                    if (this@Speaker.speechQueue.isEmpty() && this@Speaker.shouldReleaseTextToSpeechWhenQueueBecomesEmpty) {
-                        this@Speaker.release()
+                        if (this@Speaker.speechQueue.isEmpty() && this@Speaker.shouldReleaseTextToSpeechWhenQueueBecomesEmpty) {
+                            this@Speaker.release()
+                        }
                     }
                 }
 
@@ -83,10 +85,12 @@ class Speaker(
                         start = start,
                         length = end - start
                     )
-                    this@Speaker.onSpeechListener?.onProgress(
-                        speech.text,
-                        position
-                    )
+                    Handler(Looper.getMainLooper()).post {
+                        this@Speaker.onSpeechListener?.onProgress(
+                            speech.text,
+                            position
+                        )
+                    }
                 }
             }
         )
